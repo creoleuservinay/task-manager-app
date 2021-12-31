@@ -1,5 +1,5 @@
 export interface Task{
-    id: string;
+    id: number;
     title: string;
     description: string;
     status: TaskStatus
@@ -7,6 +7,6 @@ export interface Task{
 
 export enum TaskStatus {
     OPEN = "OPEN",
-    IN_PROGREE =   "IN_PROGREE",
+    IN_PROGRESS =  "IN_PROGRESS",
     DONE = "DONE",
 }
