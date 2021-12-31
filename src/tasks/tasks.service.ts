@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Task, TaskStatus } from './task.model';
+import { Task, TaskStatus } from './task.status-enum';
 import { v4 as uuid } from 'uuid';
 import { CreateClassDto } from './dto/create-task-dto';
 import { NotFoundError } from 'rxjs';

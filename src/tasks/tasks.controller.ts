@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Req, Param, ConsoleLogger, Delete, Patch, ParseIntPipe } from '@nestjs/common';
 import { CreateClassDto } from './dto/create-task-dto';
 import { updateTaskStatusDto } from './dto/update-task-status.dto';
-import { Task, TaskStatus } from './task.model';
+import { Task, TaskStatus } from './task.status-enum';
 import { TasksService } from './tasks.service';
 //import { Request } from 'express';
 
