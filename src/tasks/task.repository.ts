@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from "typeorm";
-import { CreateClassDto } from "./dto/create-task-dto";
+import { CreateTasksDto } from "./dto/create-task-dto";
 import { GetTasksFilterDto } from "./dto/get-tasks-filter.dto";
 import { Task } from "./task.entity";
 import { TaskStatus } from "./task.status-enum";
@@ -7,6 +7,17 @@ import { TaskStatus } from "./task.status-enum";
 @EntityRepository(Task)
 export class TaskRepository extends Repository<Task>{
     
+    async createTask(createtaskdto: CreateTasksDto): Promise<Task>{
+        const {title, description} = createtaskdto;
+        const task = this.create({
+            title,
+            description,
+            status: TaskStatus .OPEN
+        });
+        await this.save(task);
+        return task;
+    }
+
     async getTasksList(filtereddto: GetTasksFilterDto): Promise<Task[]>{
         const {status} = filtereddto;
         const query = this.createQueryBuilder('task');
@@ -23,16 +34,5 @@ export class TaskRepository extends Repository<Task>{
         
        const tasks = await query.getMany();
         return tasks;
-    }
-
-    async createTask(createtaskdto: CreateClassDto): Promise<Task>{
-        const {title, description} = createtaskdto;
-        const task = this.create({
-            title,
-            description,
-            status: TaskStatus .OPEN
-        });
-        await this.save(task);
-        return task;
     }
 }

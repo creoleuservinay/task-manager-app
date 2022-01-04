@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Task, TaskStatus } from './task.status-enum';
 import { v4 as uuid } from 'uuid';
-import { CreateClassDto } from './dto/create-task-dto';
+import { CreateTasksDto } from './dto/create-task-dto';
 import { NotFoundError } from 'rxjs';
 import { TaskRepository } from './task.repository';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,28 +12,9 @@ export class TasksService {
     constructor(
         @InjectRepository(TaskRepository)
         private taskRepository: TaskRepository
-    ){
-
-    }
-    // private tasks: Task[] = [];
-
-    //  getAllTask(): Task[]{
-    //      return this.tasks;
-    //  }
-
-    //  createTask(createtaskdto: CreateClassDto): Task {
-    //     const {title, description} = createtaskdto;
-    //     const task: Task = {
-    //     id: uuid(),
-    //     title: title,
-    //     description: description,
-    //     status: TaskStatus.OPEN,
-    //    }
-    //    this.tasks.push(task);
-    //    return task;
-    // }
-
-    createTask(createtaskdto: CreateClassDto): Promise<Task> {
+    ){}
+   
+    createTask(createtaskdto: CreateTasksDto): Promise<Task> {
         return this.taskRepository.createTask(createtaskdto);
     }
 
@@ -62,6 +43,24 @@ export class TasksService {
         async getTasks(filtereddto: GetTasksFilterDto): Promise<Task[]>{
             return this.taskRepository.getTasksList(filtereddto);
         }
+
+     // private tasks: Task[] = [];
+
+    //  getAllTask(): Task[]{
+    //      return this.tasks;
+    //  }
+
+    //  createTask(createtaskdto: CreateTasksDto): Task {
+    //     const {title, description} = createtaskdto;
+    //     const task: Task = {
+    //     id: uuid(),
+    //     title: title,
+    //     description: description,
+    //     status: TaskStatus.OPEN,
+    //    }
+    //    this.tasks.push(task);
+    //    return task;
+    // }
 
     // getTaskById(id:string): Task{
     //     const found = this.tasks.find((task) => task.id === id);

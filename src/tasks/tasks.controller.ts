@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Req, Param, ConsoleLogger, Delete, Patch, ParseIntPipe, Query } from '@nestjs/common';
 import { query } from 'express';
-import { CreateClassDto } from './dto/create-task-dto';
+import { CreateTasksDto } from './dto/create-task-dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { updateTaskStatusDto } from './dto/update-task-status.dto';
 import { Task, TaskStatus } from './task.status-enum';
@@ -13,14 +13,15 @@ export class TasksController {
 
     
     @Post()
-    createTask(@Body() createtaskdto: CreateClassDto
+    createTask(@Body() createtaskdto: CreateTasksDto
     ): Promise<Task> {
        return this.taskservice.createTask(createtaskdto);
     }
     
     
+    
     @Get('/:id')
-    GetTaskById(@Param('id') id: number): Promise<Task>{
+    GetTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task>{
         console.log(id);
         return this.taskservice.getTaskById(id);
     }
@@ -47,7 +48,7 @@ export class TasksController {
     }
 
     // @Post()
-    // createTask(@Body() createtaskdto: CreateClassDto
+    // createTask(@Body() createtaskdto: CreateTasksDto
     // ): Task {
     //    return this.taskservice.createTask(createtaskdto);
     // }
